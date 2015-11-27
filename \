@@ -1,0 +1,17 @@
+#!/bin/bash
+
+date
+
+#/Users/tedonema/bin/prepare-aws-server-list.sh default
+
+NUMOFLINES=$(wc -l < /etc/ansible/hosts)
+echo "Number of lines in /etc/ansible/hosts: $NUMOFLINES"
+
+if [[ '1' -eq $NUMOFLINES ]]
+then
+  echo "Hosts file doesn't contain any servers. Exiting..."
+  echo "Check the script /Users/tedonema/bin/prepare-aws-server-list.sh"
+  exit 1
+fi
+
+/usr/local/bin/ansible-playbook ~/runtime/ansible/wordpress/assign-apache-owner.yml

@@ -19,7 +19,7 @@ then
 fi
 
 echo "[wordpress]" > $inventory
-aws ec2 describe-instances --profile $profile | grep PublicIpAddress | awk '{print $2}' | sed 's/"//g' | sed 's/,//g' >> $inventory 
+/usr/local/bin/aws ec2 describe-instances --profile $profile | grep PublicIpAddress | awk '{print $2}' | sed 's/"//g' | sed 's/,//g' >> $inventory 
 
 echo "file: $inventory has been written"
 
