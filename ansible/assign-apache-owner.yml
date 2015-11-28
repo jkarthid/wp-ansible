@@ -6,6 +6,6 @@
   remote_user: ec2-user
   tasks:
   - name: Sets the owner of /var/www/html to be apache
-    file: group=apache owner=apache path=/var/www/ recurse=yes state=touch
+    file: group=apache owner=apache path=/var/www/ recurse=yes state=directory
     become: yes
     become_user: root
