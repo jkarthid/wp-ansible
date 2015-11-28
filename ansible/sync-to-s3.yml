@@ -1,0 +1,11 @@
+---
+- hosts: wordpress
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: ec2-user
+  tasks:
+  - name: sync /var/www/html/ with s3://wp-code/
+    command: aws s3 sync --delete /var/www/html/ s3://wp-code/
+    become: yes
+    become_user: root

@@ -1,0 +1,11 @@
+---
+- hosts: wordpress
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: ec2-user
+  tasks:
+  - name: Updates the OS on wordpress boxes
+    command: yum update -y
+    become: yes
+    become_user: root

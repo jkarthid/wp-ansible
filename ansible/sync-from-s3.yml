@@ -1,0 +1,11 @@
+---
+- hosts: wordpress
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: ec2-user
+  tasks:
+  - name: sync s3://wp-code/ to /var/www/html/
+    command: aws s3 sync s3://wp-code/ /var/www/html/
+    become: yes
+    become_user: root
