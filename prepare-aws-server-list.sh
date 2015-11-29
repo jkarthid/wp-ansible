@@ -9,13 +9,25 @@ Where:
 _EOF_
 }
 
-inventory=/etc/ansible/hosts
+ANSIBLE_CONFIG_HOME=~/runtime/ansible
+inventory=$ANSIBLE_CONFIG_HOME/hosts
+
 profile=$1
 
 if [ -z "$1" ]
 then
   usage
   exit 1
+fi
+
+if [ ! -d "$ANSIBLE_CONFIG_HOME" ]; then
+    echo "Ansible config home: $ANSIBLE_CONFIG_HOME does not exist...Creating folder"
+    mkdir -p "$ANSIBLE_CONFIG_HOME"
+fi
+
+if [ ! -f "$inventory" ]; then
+    echo "Inventory file $inventory does not exist. Creating one..."
+    touch "$inventory"
 fi
 
 echo "[wordpress]" > $inventory
