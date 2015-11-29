@@ -12,8 +12,8 @@ function connect()
 {
 box=$1
 osascript <<-END
-  tell application "Terminal"
-    do script with command "~/bin/connect-to-box.sh $box"
+  tell application "Terminal.app"
+    do script "~/bin/connect-to-box.sh $box"
   end tell
 END
 }
@@ -31,8 +31,8 @@ fi
 
 while read ip; do
   if [[ $ip =~ ^\[.* ]]; then
-    echo "Skipping label $ip"
+    echo "Skipping label $ip";
   else
-    connect "$ip"    
+    connect "$ip";
   fi
 done < $inventory
