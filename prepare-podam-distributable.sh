@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd /Users/tedonema/dev/podam
+cd $HOME/dev/podam
 
 mvn clean deploy source:jar javadoc:jar gpg:sign site:site
 
