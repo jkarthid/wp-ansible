@@ -1,7 +1,30 @@
 #!/bin/bash
 
+#
 # It invokes the Ansible playbook to stop cron on all my AWS instances
+#
 
-$HOME/bin/prepare-aws-server-list.sh default
+#
+# Defines how this script should be used
+#
+function usage()
+{
+cat <<- _EOF_
+Usage: $0 <profile>
+Where:
+<profile> is the AWS profile name which must match an entry in ~/.aws/credentials. If not passed, it will be defaulted to "default"
+_EOF_
+}
+
+profile=$1
+
+# Profile is mandatory
+if [ -z "$profile" ]
+then
+  echo "Profile has not been passed. Using 'default'"
+  profile=default
+fi
+
+$HOME/bin/prepare-aws-server-list.sh $profile
 
 /usr/local/bin/ansible-playbook ~/bin/ansible/stopcron.yml

@@ -24,8 +24,8 @@ profile=$1
 # Profile is mandatory
 if [ -z "$profile" ]
 then
-  usage
-  exit 1
+  echo "Profile has not been passed. Using 'default'"
+  profile=default
 fi
 
 # Creates the Ansible configuration directory if it doesn't exist
