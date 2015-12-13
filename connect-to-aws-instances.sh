@@ -1,14 +1,17 @@
 #!/bin/bash
 
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo "Current directory: $CURRENT_DIR"
+
 #
 # Defines how this script should be used
 #
 function usage()
 {
 cat <<- _EOF_
-Usage (* denotes mandatory arguments): $0 <profile>*
+Usage (* denotes mandatory arguments): $0 <profile>
 Where: 
-<profile> is the AWS profile name which must match an entry in ~/.aws/credentials
+<profile> is the AWS profile name which must match an entry in ~/.aws/credentials. If not passed it will be defaulted to "default"
 _EOF_
 }
 
@@ -21,7 +24,7 @@ function connect()
 box=$1
 osascript <<-END
   tell application "Terminal.app"
-    do script "$HOME/bin/connect-to-box.sh $box"
+    do script "$CURRENT_DIR/connect-to-box.sh $box"
   end tell
 END
 }
@@ -32,12 +35,12 @@ inventory=$HOME/runtime/ansible/hosts
 
 if [ -z "$profile" ]
 then
-  usage
-  exit 1
+  echo "Defaulting profile to 'default'..."
+  profile=default
 fi
 
 # Refreshes the ansible inventory file
-$HOME/bin/prepare-aws-server-list.sh $profile
+$CURRENT_DIR/prepare-aws-server-list.sh $profile
 
 # It ssh into each IP address listed in the inventory file
 while read ip; do

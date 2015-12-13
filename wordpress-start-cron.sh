@@ -1,5 +1,8 @@
 #!/bin/bash
 
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo "Current directory: $CURRENT_DIR"
+
 # It invokes the Ansible playbook to start the cron on all my AWS instances
 
 #
@@ -24,6 +27,6 @@ then
 fi
 
 
-$HOME/bin/prepare-aws-server-list.sh $profile
+$CURRENT_DIR/prepare-aws-server-list.sh $profile
 
-/usr/local/bin/ansible-playbook ~/bin/ansible/startcron.yml
+/usr/local/bin/ansible-playbook $CURRENT_DIR/ansible/startcron.yml
